@@ -22,7 +22,7 @@ public class ReadFile {
     }
     private ReadFile() {}
     public ReadFile(String fname) throws FileNotFoundException {
-        if (!doReadFile(fname)) {
+        if (!doReadFile(fname)) { //!doReadFile(fname) calls doReadFile method and negates the resulting boolean
             throw new FileNotFoundException("Error reading file: " + fname);
         }
     }
