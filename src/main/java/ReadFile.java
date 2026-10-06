@@ -5,14 +5,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ReadFile {
-    private ArrayList<String> lines;
-    public ArrayList<String> getLines() { return lines; }
+    private ArrayList<Paragraph> paragraphs; //changed to ArrayList of Paragraph objects
+    public ArrayList<Paragraph> getParagraphs() { return paragraphs; }
     public Boolean doReadFile(String fname) {
-        lines = new ArrayList<>();
+        paragraphs = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fname))) {
             String line;
+            Paragraph currentParagraph = new Paragraph();
+
             while ((line = reader.readLine()) != null) {
-                lines.add(line);
+                if (line.trim().isEmpty()){ //if nothing is written on the line
+                    if (!currentParagraph.isEmpty()){ //if paragraph has words in it
+                        paragraphs.add(currentParagraph);
+                        currentParagraph = new Paragraph(); //starts a new paragraph
+                    }
+                } else {
+                    String[] words = line.trim().split("\\s+"); //splits on any whitespace
+                    currentParagraph.addWords(words);
+                }
+            }
+            //adds last paragraph in file if file doesn't end with empty line
+            if (!currentParagraph.isEmpty()){
+                paragraphs.add(currentParagraph);
             }
             return true;
         } catch (IOException e) {
