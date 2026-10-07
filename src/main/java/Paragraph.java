@@ -22,4 +22,8 @@ public class Paragraph {
     public ArrayList<String> getWords() {
         return words;
     }
+
+    public String toString(){
+        return String.join(" ", words); //joins words with spaces
+    }
 }
