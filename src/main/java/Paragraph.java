@@ -6,4 +6,20 @@ public class Paragraph {
     public Paragraph(){
         words = new ArrayList<>();
     }
+
+    public void addWords(String[] newWords){
+        for (String word : newWords){
+            if (!word.isEmpty()){
+                words.add(word);
+            }
+        }
+    }
+
+    public boolean isEmpty(){
+        return words.isEmpty();
+    }
+
+    public ArrayList<String> getWords() {
+        return words;
+    }
 }
